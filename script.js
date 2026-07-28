@@ -3,7 +3,7 @@ const taskInput = document.getElementById("js-task-input");
 const taskDate = document.getElementById("js-task-date");
 const addBtn = document.getElementById("js-todo-add-btn"); 
 const taskList = document.getElementById("js-task-list");
-let html = ``;
+const taskItems = [];
 
 // add button work
 addBtn.addEventListener("click", function(){
@@ -12,26 +12,53 @@ addBtn.addEventListener("click", function(){
 
 function addTask(){
     // check tasks are empty of fill
+    if(!validation()){
+        return;
+    }
+
+    // add items in a object and put it in an array
+    const item = {
+        taskName : taskInput.value,
+        taskDate : taskDate.value
+    }
+
+    taskItems.push(item);
+    console.log(taskItems);
+
+    // reset the value
+    taskDate.value = '';
+    taskInput.value = '';
+
+    renderPage();
+}
+
+function validation(){
     if (taskInput.value === ""){
         alert("Enter a task");
-        return;
+        return false;
     }
     if (taskDate.value === ""){
         alert("Enter a date");
-        return;
+        return false;
     }
+    return true;
+}
 
-    // create a div where task name and date is presant 
-    html +=`
-        <div class="todo-item">
-            <p>${taskInput.value}</p>
-            <p>${taskDate.value}</p>
-            <button>🗑 Delete</button>
-        </div>
-    `;
-
-    // it reset the value when the old input value is added
+function renderPage(){ 
+    let html = ``;
+    for(let i = 0; i < taskItems.length; i++){
+        html += `
+            <div class="todo-item">
+                <p>${taskItems[i].taskName}</p>
+                <p>${taskItems[i].taskDate}</p>
+                <button onclick="deleteTask(${i})">🗑 Delete</button>
+            </div>
+        `;
+    }
     taskList.innerHTML = html;
-    taskDate.value = '';
-    taskInput.value = '';
+}
+
+function deleteTask(index){
+    taskItems.splice(index,1);
+    renderPage();
 }
