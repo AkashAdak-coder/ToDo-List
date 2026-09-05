@@ -1,7 +1,11 @@
 const inputBox = document.querySelector('.todo-input-box');
 const addToDoBtn = document.querySelector('.add-todo-btn');
 const todoList = document.querySelector('.todo-list-container');
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('tasks'));
+
+if(!tasks){
+    tasks = [];
+}
 
 function addTodo(){
     let taskText = inputBox.value.trim();
@@ -18,6 +22,7 @@ function addTodo(){
 
     tasks.push(newObject);
     inputBox.value = '';
+    savetolocalStorage();
     displayTodo();
 }
 
@@ -39,6 +44,7 @@ function displayTodo(){
 
 function deleteTodo(todoId){
     tasks = tasks.filter(task => task.id !== Number(todoId));
+    savetolocalStorage();
     displayTodo();   
 }
 
@@ -62,3 +68,11 @@ todoList.addEventListener('click', (event) =>{
         todoItem.querySelector('.todo').classList.toggle('complete');
     }
 });
+
+function savetolocalStorage(){
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+}
+
+if(tasks){
+    displayTodo();
+}

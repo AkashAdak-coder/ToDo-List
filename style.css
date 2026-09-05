@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap+Sharp:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Asap Sharp", sans-serif;
 }
 
 :root{
@@ -27,6 +28,7 @@ body{
     background-color: var(--app-bg-color);
     padding: 15px;
     border-radius: 18px;
+    box-shadow: 0 3px 15px black;
 }
 
 .todo-containter{
@@ -38,13 +40,25 @@ body{
     margin-top: 20px;
 }
 
+.todo-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 0 10px;
+}
+
+.todo-header i{
+    font-size: 1.5em;
+    color: var(--accent-color);
+}
+
 .todo-input-box{
     width: 100%;
     padding: 18px;
     border: none;
     outline: none;
     border-radius: 20px;
-    font-size: 1.2em;
+    font-size: 1.3em;
     background-color: transparent;
 }
 
@@ -52,6 +66,7 @@ body{
     min-width: 80px;
     max-width: 200px;
     width: 100%;
+    font-size: 1.3em;
     padding: 20px;
     background-color: var(--accent-color);
     color: var(--app-bg-color);
