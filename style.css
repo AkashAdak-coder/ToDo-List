@@ -1,108 +1,144 @@
-
 *{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
 }
+
+:root{
+    --bg-color: linear-gradient(to right bottom,#16165af1, #800080d1); 
+    --accent-color: orangered;
+    --app-bg-color: white;
+    --input-box-color:  #e1dede;
+}
+
 body{
-    min-height: 100vh;
+    background-image: var(--bg-color);
+    height: 100vh;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
-    align-items: start;
-    background-color: #eef2ff;
+    align-items: center;
 }
-.Todo-app{
+
+.todo-app{
+    max-width: 800px;
     width: 100%;
-    max-width: 850px;
-    max-height: 500px;
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    border: 2px solid #16a34a;
-    padding: 0 0 25px;
-    border-radius: 30px;
-    margin: 30px 10px;
-}
-header{
-    width: 100%;
-    max-width: 850px;
-    display: grid;
-    padding: 20px;
-    background: #16a34a;
-    color: white;
-    padding: 5px 20px;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-}
-header h1{
-    color: white;
-    text-shadow: 3px 3px 3px #f6bd8f;
-    text-align: center;
-    margin: 30px 0 10px;
-}
-.sticky-header{
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding-bottom: 15px;
-}
-#js-task-box{
-    display: flex;
-    gap: 20px;
-}
-#js-task-input,
-#js-task-date{ 
-    width: 100%;
-    max-width: 320px;           
-    border: 1.2px solid white;
+    background-color: var(--app-bg-color);
     padding: 15px;
-    color: #16a34a;
-    outline: none;
-    font-size: 1.1em;
+    border-radius: 18px;
 }
-#js-task-input::placeholder{
-    color: #16a34a;
-    font-size: 1.1em;
+
+.todo-containter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--input-box-color);
+    border-radius: 30px;
+    margin-top: 20px;
 }
-#js-todo-add-btn{
+
+.todo-input-box{
     width: 100%;
-    max-width: 100px;
-    border: 1.2px solid #16a34a;
-    background-color: white;
-    padding: 16px;
-    font-weight: 600;
-    font-size: 1.1em;
-}
-main{
-    flex: 1;
-    overflow-y: auto;
-    width: 100%;
-}
-#js-task-list{
-    padding: 20px;
-}
-.todo-item{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    place-items: center;
-    font-size: 1.3em;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-.todo-item button{
-    width: 200px;
-    padding: 10px;
+    padding: 18px;
     border: none;
-    border-radius: 6px;
-    background-color: white;
-    color: blue;
-    font-weight: 600;
+    outline: none;
+    border-radius: 20px;
+    font-size: 1.2em;
+    background-color: transparent;
 }
-footer{
-    position: absolute;
-    bottom: 30px;
-    font-weight: 600;
-    text-align:center;
-    margin-top:20px;
+
+.add-todo-btn{
+    min-width: 80px;
+    max-width: 200px;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--accent-color);
+    color: var(--app-bg-color);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.todo-list-container{
+    max-width: 800px;
+    width: 100%;
+}
+
+.todo-list{
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+    padding: 10px;
+    margin: 5px 0;
+    align-items: center;
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    height: 22px;
+    width: 22px;
+    border: 2.3px solid #d2d0d0ff;
+    border-radius: 50%;
+    cursor: pointer;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="checkbox"]::before{
+    content: '';
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform:rotate(45deg) scale(0);
+    transition: 120ms transform ease-in-out;
+    margin-top: -2px;
+}
+
+input[type="checkbox"]:checked::before{
+    transform:rotate(45deg) scale(1);
+}
+
+input[type="checkbox"]:checked{
+    background-color: var(--accent-color);
+}
+
+.todo-list .todo{
+    font-size: 1.2em;
+}
+
+.todo-list img{
+    height: 20px;
+}
+
+.complete{
+    text-decoration: line-through;
+    color: #616161;
+}
+
+@media((min-width:343px) and (max-width: 455px)){
+    .todo-app{
+        margin: 0 10px;
+    }
+    h1{
+        font-size: 1.2em;
+    }
+    .todo-containter .todo-input-box{
+        font-size: 0.8em;
+        padding: 14px;
+    }
+    .add-todo-btn{
+        padding: 14px;
+    }
+    .todo-list{
+        padding: 5px;
+    }
+    .todo-list .todo{
+        font-size: 0.9em;
+    }
+    .todo-list img{
+        height: 14px;
+    }
 }

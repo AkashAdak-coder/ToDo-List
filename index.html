@@ -7,22 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class="Todo-app">
-        <header class="sticky-header">
-            <h1>🚩🚩 ToDo App 🚩🚩</h1>
-            <div id="js-task-box">
-                <input type="text" placeholder="Enter your task" id="js-task-input">
-                <input type="date" id="js-task-date">
-                <button id="js-todo-add-btn">Add</button>
+    <div class="todo-app">
+        <h1>To-Do List</h1>
+        <div class="todo-containter">
+            <input type="text" placeholder="Add Your Task" class="todo-input-box">
+            <button class="add-todo-btn">ADD</button>
+        </div>
+        <div class="todo-list-container">
+            <div class="todo-list">
             </div>
-        </header>
-        <main>
-            <div id="js-task-list"></div>
-        </main>
-    </section>
-    <footer>
-        &copy; CodeWithAkashAdak 2026. All rights reserved.
-    </footer>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

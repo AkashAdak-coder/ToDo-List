@@ -1,64 +1,64 @@
+const inputBox = document.querySelector('.todo-input-box');
+const addToDoBtn = document.querySelector('.add-todo-btn');
+const todoList = document.querySelector('.todo-list-container');
+let tasks = [];
 
-const taskInput = document.getElementById("js-task-input");
-const taskDate = document.getElementById("js-task-date");
-const addBtn = document.getElementById("js-todo-add-btn"); 
-const taskList = document.getElementById("js-task-list");
-const taskItems = [];
+function addTodo(){
+    let taskText = inputBox.value.trim();
 
-// add button work
-addBtn.addEventListener("click", function(){
-    addTask();
-});
-
-function addTask(){
-    // check tasks are empty of fill
-    if(!validation()){
+    if (taskText === '') {
+        alert('Please enter a task.');
         return;
     }
 
-    // add items in a object and put it in an array
-    const item = {
-        taskName : taskInput.value,
-        taskDate : taskDate.value
+    let newObject = {
+        todoName : taskText,
+        id : Date.now()
     }
 
-    taskItems.push(item);
-    console.log(taskItems);
-
-    // reset the value
-    taskDate.value = '';
-    taskInput.value = '';
-
-    renderPage();
+    tasks.push(newObject);
+    inputBox.value = '';
+    displayTodo();
 }
 
-function validation(){
-    if (taskInput.value === ""){
-        alert("Enter a task");
-        return false;
+function displayTodo(){
+ let taskList = '';
+
+ tasks.forEach( task => {
+    taskList += `
+    <div class="todo-list" data-id="${task.id}">
+        <input type="checkbox" data-id="${task.id}" class="js-checkbox">
+        <div class="todo">${task.todoName}</div>
+        <img src="xmark-solid-full.svg" alt="xmark icon" class="js-delete-btn">
+    </div>
+    `;
+ });
+
+ todoList.innerHTML = taskList;
+}
+
+function deleteTodo(todoId){
+    tasks = tasks.filter(task => task.id !== Number(todoId));
+    displayTodo();   
+}
+
+addToDoBtn.addEventListener('click', addTodo);
+
+inputBox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        addTodo();
     }
-    if (taskDate.value === ""){
-        alert("Enter a date");
-        return false;
-    }
-    return true;
-}
+});
 
-function renderPage(){ 
-    let html = ``;
-    for(let i = 0; i < taskItems.length; i++){
-        html += `
-            <div class="todo-item">
-                <p>${taskItems[i].taskName}</p>
-                <p>${taskItems[i].taskDate}</p>
-                <button onclick="deleteTask(${i})">🗑 Delete</button>
-            </div>
-        `;
-    }
-    taskList.innerHTML = html;
-}
+todoList.addEventListener('click', (event) =>{
+    let todoItem = event.target.closest('.todo-list');
+    if(!todoItem) return;
 
-function deleteTask(index){
-    taskItems.splice(index,1);
-    renderPage();
-}
+    let todoId = todoItem.dataset.id;
+    if (event.target.classList.contains('js-delete-btn')) {
+        deleteTodo(todoId);
+    }
+    if(!(event.target.classList.contains('.js-checkbox'))){
+        todoItem.querySelector('.todo').classList.toggle('complete');
+    }
+});
